@@ -139,7 +139,7 @@
 			"response": []
 		},
 		{
-			"name": "/doAction accept",
+			"name": "/doAction accept_task",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -162,7 +162,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011587/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -173,7 +173,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011587",
+						"1011588",
 						"doAction"
 					]
 				}
@@ -204,7 +204,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011587/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -215,7 +215,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011587",
+						"1011588",
 						"doAction"
 					]
 				}
@@ -238,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"contentType\": \"Comment\",\r\n    \"content\": \"Указать среднюю стоимость по рынку Jira\",\r\n    \"attaches\": [],\r\n               \"subject\": {\r\n            \"id\": \"1011587\",\r\n            \"contentType\": \"Task\"\r\n        }\r\n\r\n}",
+					"raw": "{\r\n    \"contentType\": \"Comment\",\r\n    \"content\": \"Указать среднюю стоимость по рынку Jira Confluence\",\r\n    \"attaches\": [],\r\n               \"subject\": {\r\n            \"id\": \"1011588\",\r\n            \"contentType\": \"Task\"\r\n        }\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -246,7 +246,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011587/comments",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/comments",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -257,7 +257,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011587",
+						"1011588",
 						"comments"
 					]
 				}
@@ -288,7 +288,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011587/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -299,7 +299,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011587",
+						"1011588",
 						"doAction"
 					]
 				}
@@ -322,7 +322,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"action\": \"act_delete\",\r\n    \"checkTodos\": true\r\n}",
+					"raw": "{\r\n    \"action\": \"act_delete\",\r\n    \"checkTodos\": true\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -330,7 +330,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011587/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -341,7 +341,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011587",
+						"1011588",
 						"doAction"
 					]
 				}
