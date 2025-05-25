@@ -8,6 +8,19 @@
 	"item": [
 		{
 			"name": "/auth/access_token (Exploratory1@1.1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"access_token\", jsonData.access_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -54,6 +67,19 @@
 		},
 		{
 			"name": "/auth/access_token (Exploratory2@1.1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"access_token2\", jsonData.access_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -100,6 +126,34 @@
 		},
 		{
 			"name": "/task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"task_id\", jsonData.data.id);\r",
+							"\r",
+							"pm.test(\"Проверка статуса\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"assigned\");\r",
+							"});\r",
+							"pm.test(\"Проверка ответственного\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.responsible.id).to.eql(\"1000105\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Проверка названия\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"Изучить рынок. Купить ПО Atlassian Jira\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -108,7 +162,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer MjhhMmM4Yjk3ZTBkNjlmNjJlYTNlMTYxZDhkNDJkNDZjYTQ2MThiZGQxMjUxMWQxODMxZmQ4NDBmNmI4ZDU2OA",
+						"value": "Bearer {{access_token}}",
 						"type": "text"
 					}
 				],
@@ -140,6 +194,21 @@
 		},
 		{
 			"name": "/doAction accept_task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Проверка статуса\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"accepted\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -148,7 +217,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer NDFhMDg2NGI3NzIwOWViNjVlNTUyZDBjN2U5MjAwYjM1MWQzMDlmYmYxOGUxZTdjMGY2ZGE5NTA4NTMxMDNiNg",
+						"value": "Bearer {{access_token2}}",
 						"type": "text"
 					}
 				],
@@ -162,7 +231,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/{{task_id}}/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -173,7 +242,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011588",
+						"{{task_id}}",
 						"doAction"
 					]
 				}
@@ -182,6 +251,21 @@
 		},
 		{
 			"name": "/doAction Done",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Проверка статуса\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"done\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -190,7 +274,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer NDFhMDg2NGI3NzIwOWViNjVlNTUyZDBjN2U5MjAwYjM1MWQzMDlmYmYxOGUxZTdjMGY2ZGE5NTA4NTMxMDNiNg",
+						"value": "Bearer {{access_token2}}",
 						"type": "text"
 					}
 				],
@@ -204,7 +288,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/{{task_id}}/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -215,7 +299,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011588",
+						"{{task_id}}",
 						"doAction"
 					]
 				}
@@ -224,6 +308,21 @@
 		},
 		{
 			"name": "/comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Проверка комментария\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.content).to.eql(\"<p>Указать среднюю стоимость по рынку Jira Confluence</p>\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -232,13 +331,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer NDFhMDg2NGI3NzIwOWViNjVlNTUyZDBjN2U5MjAwYjM1MWQzMDlmYmYxOGUxZTdjMGY2ZGE5NTA4NTMxMDNiNg",
+						"value": "Bearer {{access_token2}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"contentType\": \"Comment\",\r\n    \"content\": \"Указать среднюю стоимость по рынку Jira Confluence\",\r\n    \"attaches\": [],\r\n               \"subject\": {\r\n            \"id\": \"1011588\",\r\n            \"contentType\": \"Task\"\r\n        }\r\n\r\n}",
+					"raw": "{\r\n    \"contentType\": \"Comment\",\r\n    \"content\": \"Указать среднюю стоимость по рынку Jira Confluence\",\r\n    \"attaches\": [],\r\n               \"subject\": {\r\n            \"id\": {{task_id}},\r\n            \"contentType\": \"Task\"\r\n        }\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -246,7 +345,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/comments",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/{{task_id}}/comments",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -257,7 +356,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011588",
+						"{{task_id}}",
 						"comments"
 					]
 				}
@@ -266,6 +365,21 @@
 		},
 		{
 			"name": "/doAction accept_work",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Проверка статуса\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"completed\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -274,7 +388,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer MjhhMmM4Yjk3ZTBkNjlmNjJlYTNlMTYxZDhkNDJkNDZjYTQ2MThiZGQxMjUxMWQxODMxZmQ4NDBmNmI4ZDU2OA",
+						"value": "Bearer {{access_token}}",
 						"type": "text"
 					}
 				],
@@ -288,7 +402,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/{{task_id}}/doAction",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -299,7 +413,7 @@
 						"api",
 						"v3",
 						"task",
-						"1011588",
+						"{{task_id}}",
 						"doAction"
 					]
 				}
@@ -307,22 +421,42 @@
 			"response": []
 		},
 		{
-			"name": "/doAction act_delete",
+			"name": "/task_delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"В ответе текст отсутствует\", function () {\r",
+							"    pm.response.to.have.body({\r",
+							"    \"meta\": {\r",
+							"        \"status\": 200,\r",
+							"        \"errors\": []\r",
+							"    },\r",
+							"    \"data\": \"Task successfully removed\"\r",
+							"});\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "POST",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer MjhhMmM4Yjk3ZTBkNjlmNjJlYTNlMTYxZDhkNDJkNDZjYTQ2MThiZGQxMjUxMWQxODMxZmQ4NDBmNmI4ZDU2OA",
+						"value": "Bearer {{access_token}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"action\": \"act_delete\",\r\n    \"checkTodos\": true\r\n}\r\n",
+					"raw": "{  \r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -330,7 +464,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://radio-shop.megaplan.by/api/v3/task/1011588/doAction",
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/{{task_id}}",
 					"protocol": "https",
 					"host": [
 						"radio-shop",
@@ -341,12 +475,127 @@
 						"api",
 						"v3",
 						"task",
-						"1011588",
-						"doAction"
+						"{{task_id}}"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/task_delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.meta.errors[0].message).to.eql(\"Not Found Task with id = \" + pm.collectionVariables.get(\"task_id\"));\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://radio-shop.megaplan.by/api/v3/task/{{task_id}}",
+					"protocol": "https",
+					"host": [
+						"radio-shop",
+						"megaplan",
+						"by"
+					],
+					"path": [
+						"api",
+						"v3",
+						"task",
+						"{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"\r",
+					"let responseCode = pm.response.code;\r",
+					"\r",
+					"// Проверяем, соответствует ли код ответа ожидаемому (например, 200)\r",
+					"if (responseCode === 200) {\r",
+					"    // Если да, то запустить тест\r",
+					"    pm.test(\"Проверка кода ответа\", function () {\r",
+					"        pm.expect(responseCode).to.eql(200);\r",
+					"    });\r",
+					"} else {\r",
+					"    // Если нет, то можно не запускать тест или вывести сообщение\r",
+					"    // Например, можно вывести сообщение в консоль (CTRL+alt+C)\r",
+					"    console.log(\"Код ответа не 200, тест не запущен\");\r",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "task_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "access_token2",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
